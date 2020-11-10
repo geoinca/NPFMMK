@@ -1,0 +1,58 @@
+FROM php:7.4-fpm
+
+LABEL summary="The open-vm-tools guest agent" 
+
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        git \
+        vim \
+        openssl \
+        libz-dev \
+        libjpeg-dev \
+        libmcrypt-dev \
+        autoconf \
+        file \
+        g++ \
+        gcc \
+        gnupg \
+        libonig-dev \
+        libpng-dev \
+        libzip-dev \
+        libicu-dev \
+        libzip4 \
+	&& pecl install xdebug \
+	&& docker-php-ext-install opcache \
+    && docker-php-ext-enable xdebug \
+	&& docker-php-ext-install exif \
+	&& docker-php-ext-install zip \
+	&& docker-php-ext-install gd 
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP database modules
+RUN docker-php-ext-install pdo pdo_mysql mysqli 
+
+# Install PHP intl module
+RUN apt-get install -y libicu-dev \
+	&& docker-php-ext-configure intl \
+	&& docker-php-ext-install intl
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/laravel
+
+# Set your timezone here
+RUN rm /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
+RUN "date"
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+RUN echo "date.timezone=Europe/Madrid" >> /usr/local/etc/php/php.ini
+
+EXPOSE 9000
+CMD ["php-fpm"]
