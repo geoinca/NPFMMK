@@ -1,0 +1,83 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: minio
+  namespace: default
+  selfLink: /api/v1/namespaces/default/persistentvolumeclaims/minio
+  uid: c8644cba-8c8b-4eaa-90f9-63e83d959082
+  resourceVersion: '74334'
+  creationTimestamp: '2020-11-11T12:34:58Z'
+  labels:
+    app: minio
+    app.kubernetes.io/managed-by: Helm
+    chart: minio-8.0.3
+    heritage: Helm
+    release: minio
+  annotations:
+    meta.helm.sh/release-name: minio
+    meta.helm.sh/release-namespace: default
+    pv.kubernetes.io/bind-completed: 'yes'
+    pv.kubernetes.io/bound-by-controller: 'yes'
+    volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath
+  finalizers:
+    - kubernetes.io/pvc-protection
+  managedFields:
+    - manager: Go-http-client
+      operation: Update
+      apiVersion: v1
+      time: '2020-11-11T12:34:58Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:meta.helm.sh/release-name': {}
+            'f:meta.helm.sh/release-namespace': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:chart': {}
+            'f:heritage': {}
+            'f:release': {}
+        'f:spec':
+          'f:accessModes': {}
+          'f:resources':
+            'f:requests':
+              .: {}
+              'f:storage': {}
+          'f:volumeMode': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2020-11-11T12:34:58Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:pv.kubernetes.io/bind-completed': {}
+            'f:pv.kubernetes.io/bound-by-controller': {}
+            'f:volume.beta.kubernetes.io/storage-provisioner': {}
+        'f:spec':
+          'f:volumeName': {}
+        'f:status':
+          'f:accessModes': {}
+          'f:capacity':
+            .: {}
+            'f:storage': {}
+          'f:phase': {}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+  volumeName: pvc-c8644cba-8c8b-4eaa-90f9-63e83d959082
+  storageClassName: standard
+  volumeMode: Filesystem
+status:
+  phase: Bound
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 500Gi

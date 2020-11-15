@@ -1,0 +1,66 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio
+  namespace: default
+  selfLink: /api/v1/namespaces/default/services/minio
+  uid: 2360ef9f-fb2d-4df2-8eb8-b4ec83eff636
+  resourceVersion: '74329'
+  creationTimestamp: '2020-11-11T12:34:58Z'
+  labels:
+    app: minio
+    app.kubernetes.io/managed-by: Helm
+    chart: minio-8.0.3
+    heritage: Helm
+    release: minio
+  annotations:
+    meta.helm.sh/release-name: minio
+    meta.helm.sh/release-namespace: default
+  managedFields:
+    - manager: Go-http-client
+      operation: Update
+      apiVersion: v1
+      time: '2020-11-11T12:34:58Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:meta.helm.sh/release-name': {}
+            'f:meta.helm.sh/release-namespace': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:chart': {}
+            'f:heritage': {}
+            'f:release': {}
+        'f:spec':
+          'f:ports':
+            .: {}
+            'k:{"port":9000,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector':
+            .: {}
+            'f:app': {}
+            'f:release': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  selector:
+    app: minio
+    release: minio
+  clusterIP: 10.106.113.200
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
