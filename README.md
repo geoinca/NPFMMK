@@ -24,3 +24,6 @@ kubectl describe service/web-service
 kubectl get services
 # 5. port show
 minikube service web-service --url
+
+
+![Homepage Screenshot](./laravel-homepage.png)
